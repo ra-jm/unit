@@ -1,0 +1,13 @@
+{
+  "name": "@ra-jm/unit",
+  "version": "0.0.1",
+  "description": "A simple library encapsulating usable functions",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/ra-jm/unit.git",
+  "author": "ra-jm <rajashanmugamjm@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}
