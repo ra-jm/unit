@@ -1,3 +1,4 @@
 import * as HTML from "./html";
+import * as Logger from "./log";
 
-export { HTML };
+export { HTML, Logger };
