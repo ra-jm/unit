@@ -26,22 +26,33 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.create = exports.Transports = exports.Log = void 0;
 const LogTransports = __importStar(require("./transports"));
 class Log {
-    constructor(namespace, options) { }
+    constructor(options) {
+        this.options = options;
+    }
     configure() { }
-    writeLogs(level, ...ctx) { }
-    info(...ctx) {
-        this.writeLogs("INFO", ...ctx);
+    out(level, options, ...ctx) {
+        this.options.transports.forEach((t) => {
+            t.writeLog({
+                level: level,
+                context: ctx,
+                hidden: options === null || options === void 0 ? void 0 : options.hidden,
+                timestamp: this.options.timestamp,
+                namespace: this.options.namespace,
+                outputFormat: this.options.outputFormat,
+            });
+        });
     }
-    warn(...ctx) {
-        this.writeLogs("WARN", ...ctx);
-    }
-    error(...ctx) {
-        this.writeLogs("ERROR", ...ctx);
+    child(name) {
+        const l = Object.create(this);
+        l.options = Object.assign(Object.assign({}, l.options), { namespace: l.options.namespace
+                ? l.options.namespace + " > " + name
+                : name });
+        return l;
     }
 }
 exports.Log = Log;
 exports.Transports = LogTransports;
-const create = (namespace, options) => {
-    return new Log(namespace, options);
+const create = (options) => {
+    return new Log(options);
 };
 exports.create = create;
